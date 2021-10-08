@@ -1,0 +1,24 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.LoginModel
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Login</h1>
+    <div class="d-flex justify-content-center">
+        <form method="post">
+            <div class="card shadow" style="width:fit-content;">
+                <div class="card-body text-left">
+                    <label for="username">Username:</label><br />
+                    <input type="text" id="username" asp-for="@Model.Username" /><br />
+                    <span class="text-danger" asp-validation-for="@Model.Username"></span><br />
+
+                    <label for="password">Password:</label><br />
+                    <input type="password" id="password" asp-for="@Model.Password" /><br />
+                    <span class="text-danger" asp-validation-for="@Model.Password"></span><br />
+
+                    <button class="btn btn-success mt-1">Sign In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

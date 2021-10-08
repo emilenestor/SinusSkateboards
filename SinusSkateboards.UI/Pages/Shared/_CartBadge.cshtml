@@ -1,0 +1,29 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    @using Newtonsoft.Json;
+    @using Microsoft.AspNetCore.Http;
+    @using SinusSkateboards.DTO.Models
+
+    string stringCart = HttpContextAccessor.HttpContext.Session.GetString("CookieCart");
+
+    CartModel cookieCart = new CartModel();
+
+    if (!String.IsNullOrEmpty(stringCart))
+    {
+        cookieCart = JsonConvert.DeserializeObject<CartModel>(stringCart);
+    }
+    if (cookieCart.ProductsInCart != null)
+    {
+        if (cookieCart.ProductsInCart.Any())
+        {
+            int itemsTotal = 0;
+            foreach (var productDetail in cookieCart.ProductsInCart)
+            {
+                itemsTotal += productDetail.Quantity;
+            }
+            <span class="cart-counter-badge d-flex align-items-center justify-content-center font-weight-bold bg-dark disabled">
+                @itemsTotal
+            </span>
+        }
+    }
+}

@@ -1,0 +1,44 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Product.IndexModel
+@{
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card bg-white m-2 shadow">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <div class="d-block">
+                    <img src="~/images/products/@Model.Product.ImagePath" alt="Product Image" class="card-img-top" style="max-height: 500px; object-fit: contain;" />
+                </div>
+
+                <h1 class="card-title">@Model.Product.Title</h1>
+
+                <p>@Model.Product.Description</p>
+
+                <div><b>Color:</b> @Model.Product.Colour</div>
+
+                <div class="font-weight-bold" style="color:green;"><h2>Price: @Model.Product.Price SEK</h2></div>
+                @if (Model.HasOtherColours)
+                {
+                    <div class="d-flex flex-column justify-content-between">
+                        <span class="font-weight-bold">Other colours:</span>
+                        <div class="row">
+                            <div class="col">
+                                @foreach (var product in Model.OtherColours)
+                                {
+                                    <a class="btn btn-dark font-weight-bold mr-1" asp-page="/Product/Index" asp-route-id="@product.Id">
+                                        @product.Colour
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="d-flex flex-row justify-content-between">
+                    <a class="btn btn-success font-weight-bold align-icon mt-2" asp-page-handler="AddToCart" asp-route-id="@Model.Product.Id">
+                        Add to Cart&nbsp;<span class="material-icons">shopping_cart</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Products.IndexModel
+@{
+}
+<div class="container pt-3">
+    <div class="row d-flex justify-content-center align-items-center mb-3">
+        <form class="d-flex justify-content-center align-items-center" asp-page-handler="Search" method="post" style="height: 38px;">
+            <div class="bg-dark" style="border-radius: 1rem 0 0 1rem; width: 60px; height: 100%;"></div>
+            <input type="search" placeholder="Search" asp-for="SearchString" style="line-height: 33px;"/>
+            <button class="btn btn-dark" style="border-radius: 0 1rem 1rem 0; width: 60px; height: 100%;">Filter</button>
+        </form>
+    </div>
+    <div class="row d-flex justify-content-center mb-3 text-muted font-weight-bold">
+        <span>@Model.ProductList.Count items</span>
+    </div>
+    <div class="row">
+        @foreach (var product in Model.ProductList)
+        {
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                <div class="card bg-white m-2 w-100 h-100 shadow">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <img src="~/images/products/@product.ImagePath" alt="Product Image" class="card-img-top" style="height: 273px; object-fit: contain;" />
+
+                        <h1 class="card-title mb-0">@product.Title</h1>
+
+                        <a class="btn btn-dark font-weight-bold" asp-page="/Product/Index" asp-route-id="@product.Id">Details</a>
+
+                        <div class="font-weight-bold" style="color:green;"><h2>Price: @product.Price SEK</h2></div>
+
+                        <div class="d-flex flex-row justify-content-center">
+                            <a class="btn btn-success font-weight-bold align-icon" asp-page-handler="AddToCart" asp-route-id="@product.Id">
+                                Add to Cart&nbsp;<span class="material-icons">shopping_cart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

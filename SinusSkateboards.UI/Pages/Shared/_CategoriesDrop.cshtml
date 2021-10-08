@@ -1,0 +1,20 @@
+﻿@using SinusSkateboards.DAL
+@using SinusSkateboards.DTO.Models
+@using System.Linq
+
+@inject SinusDbContext _context
+@{
+    List<CategoryModel> Categories = _context.Categories.ToList();
+
+    <div class="dropdown h-100">
+        <button class="btn dropdown-toggle h-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var category in Categories)
+            {
+                <a class="dropdown-item" asp-page="/Products/Index" asp-page-handler="Category" asp-route-id="@category.Id">@category.Name</a>
+            }
+        </div>
+    </div>
+}

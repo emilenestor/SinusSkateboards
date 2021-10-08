@@ -1,0 +1,38 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Admin.Categories.IndexModel
+@{
+}
+<div class="d-flex flex-column justify-content-center mt-3 mb-3">
+    <a class="btn btn-lg btn-primary" asp-page="/Admin/Categories/AddCategory">Add Category</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Category Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+        <tr>
+            <td>
+                @category.Id
+            </td>
+            <td>
+                @category.Name
+            </td>
+            <td>
+                <a asp-page="./DeleteCategory" asp-route-id="@category.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

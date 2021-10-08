@@ -1,0 +1,84 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Admin.Orders.DetailsModel
+@{
+}
+<div class="h1 text-center">Products</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Colour
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order.OrderedProducts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Colour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="h1 text-center">Customer</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Street Address
+            </th>
+            <th>
+                Post Code
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Phone Number
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Order.Customer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Order.Customer.StreetAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Order.Customer.PostCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Order.Customer.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Order.Customer.PhoneNumber)
+            </td>
+        </tr>
+    </tbody>
+</table>
+

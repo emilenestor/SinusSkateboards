@@ -1,0 +1,46 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Cart.IndexModel
+@{
+    ViewBag.HideCart = "true";
+}
+<div class="container">
+    <div class="card shadow" style="min-height:60vh;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row"><div class="col"><h1>Shopping Cart</h1></div><div class="col-3 ml-auto d-flex justify-content-center align-items-center"><span class="text-muted">@Model.CartCount items</span></div></div>
+                    @if (Model.Cart.ProductsInCart.Any())
+                    {
+                        @foreach (var cartProduct in Model.Cart.ProductsInCart)
+                        {
+                            <div class="row border-top border-bottom border-left border-right d-flex justify-content-between">
+                                <div class="col d-flex justify-content-center align-items-center"><img class="m-1 img-small" src="~/images/products/@cartProduct.Product.ImagePath"></div>
+                                <div class="col d-flex flex-column justify-content-center">
+                                    <div class="row"><b>@cartProduct.Product.Title</b></div>
+                                    <div class="row text-muted"><b>@cartProduct.Product.Colour</b></div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center font-weight-bolder"><a class="align-icon" asp-page-handler="RemoveOne" asp-route-id="@cartProduct.Product.Id" style="color:black;"><span class="material-icons-outlined">remove_circle</span></a>&nbsp;<h2>@cartProduct.Quantity</h2>&nbsp;<a class="align-icon" asp-page-handler="AddOne" asp-route-id="@cartProduct.Product.Id" style="color:black;"><span class="material-icons-outlined">add_circle</span></a></div>
+                                <div class="col d-flex justify-content-center align-items-center">@{decimal price = cartProduct.Product.Price * cartProduct.Quantity;}@price SEK</div>
+                                <div class="col d-flex justify-content-center align-items-center"><a class="align-icon" asp-page-handler="RemoveFromCart" asp-route-id="@cartProduct.Product.Id" style="color:red;"><span class="material-icons-outlined">close</span></a></div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center text-muted m-5">
+                            <h1>Such empty. Wow.</h1>
+                        </div>
+                    }
+                    @if (Model.Cart.ProductsInCart.Any())
+                    {
+                        <h3 class="mt-5">TOTAL PRICE: @Model.TotalPrice SEK</h3>
+                        <div class="mt-3 d-flex flex-column justify-content-center">
+                            <a class="btn btn-success font-weight-bold" asp-page="/Checkout/Index">Go to Checkout</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

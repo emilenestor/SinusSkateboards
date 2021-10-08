@@ -1,0 +1,59 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Admin.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex flex-column justify-content-center mt-3 mb-3">
+    <a class="btn btn-lg btn-primary" asp-page="Create">Add Product</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductModel[0].Title)
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductModel[0].Colour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductModel[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductModel)
+        {
+            <tr>
+                <td class="d-flex justify-content-center align-items-center">
+                    <img class="img-small" src="~/images/products/@item.ImagePath" alt="Product Image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,80 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Checkout.IndexModel
+@{
+    ViewBag.HideCart = "true";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill">@Model.CartCount</span>
+            </h4>
+            <ul class="list-group mb-3">
+                @foreach (var product in Model.Cart.ProductsInCart)
+                {
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">@product.Quantity x @product.Product.Title</h6>
+                            <small class="text-muted">@product.Product.Colour</small>
+                        </div>
+                        <span class="text-muted">@decimal.Multiply((decimal)product.Quantity, product.Product.Price) SEK</span>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (SEK)</span>
+                    <strong>@Model.TotalPrice SEK</strong>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Billing address</h4>
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="name">Name</label>
+                        <input asp-for="@Model.Customer.Name" class="form-control" type="text" id="name" placeholder="Jane Doe" required="">
+                        <div class="invalid-feedback">
+                            Please enter your Name.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address">Street Address</label>
+                    <input asp-for="@Model.Customer.StreetAdress" type="text" class="form-control" id="address" placeholder="Main Street 123" required="">
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="postCode">Post Code</label>
+                        <input asp-for="@Model.Customer.PostCode" type="text" class="form-control" id="postCode" placeholder="123 45" required="">
+                        <div class="invalid-feedback">
+                            Please enter your Post Code.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="city">City</label>
+                        <input asp-for="@Model.Customer.City" type="text" class="form-control" id="city" placeholder="BIGCITY" required="">
+                        <div class="invalid-feedback">
+                            Please enter your City.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input asp-for="@Model.Customer.PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="0701234567" required="">
+                        <div class="invalid-feedback">
+                            Please enter your Phone Number.
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">BUY</button>
+            </form>
+        </div>
+    </div>
+</div>

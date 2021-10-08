@@ -1,0 +1,73 @@
+﻿@page
+@model SinusSkateboards.UI.Pages.Admin.Categories.DeleteCategoryModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this Category and all Products in it?</h3>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Category.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Category.Name)
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h4>Products in this category</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Colour
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-flex flex-column justify-content-center">
+    <a class="btn btn-lg btn-danger" asp-page-handler="Delete" asp-route-id="@Model.Category.Id">DELETE</a>
+</div>

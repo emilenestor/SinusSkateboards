@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SinusSkateboards</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body class="p-0 m-0" style="height: 100%;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow" style="height: 87px;">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/images/logos/sinus-logo-landscape-small.png" alt="Sinus Logo" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-page="/Login" asp-page-handler="Logout">
+                                    <div class="input-group">
+                                        <button type="submit" class="btn btn-danger">Logout</button>
+                                    </div>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Admin Page</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <partial name="_CategoriesDrop" />
+                        </li>
+                        @if (ViewBag.HideCart == null)
+                        {
+                            <li class="nav-item ml-auto d-flex flex-column justify-content-center">
+                                <a asp-area="" asp-page="/Cart/Index" class="cart position-relative d-inline-flex btn-link text-dark align-icon">
+                                    <span class="material-icons">
+                                        shopping_cart
+                                    </span>
+                                    <partial name="_CartBadge" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+    <footer class="border-top footer text-muted bg-white">
+        <div class="container">
+            &copy; 2021 - Sinus Skateboards - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
