@@ -58,32 +58,26 @@ namespace SinusSkateboards.UI.Pages.Checkout
                 return Page();
             }
 
-            context.CustomerDetails.Add(Customer);
-
-            context.SaveChanges();
-
             OrderModel newOrder = new OrderModel();
 
-            newOrder.CustomerId = context.CustomerDetails.Where(x => x.Name == Customer.Name && x.StreetAdress == Customer.StreetAdress && x.PostCode == Customer.PostCode && x.City == Customer.City && x.PhoneNumber == Customer.PhoneNumber).FirstOrDefault().Id;
+            newOrder.Customer = Customer;
 
             DateTimeNow = DateTime.Now;
             newOrder.OrderDate = DateTimeNow;
+
+            newOrder.OrderedProducts = new List<OrderDetailsModel>();
+
+            foreach (var product in LoadCart().ProductsInCart)
+            {
+                OrderDetailsModel odm = new OrderDetailsModel() { ProductId = product.Product.Id, Quantity = product.Quantity };
+                newOrder.OrderedProducts.Add(odm);
+            }
 
             context.Orders.Add(newOrder);
 
             context.SaveChanges();
 
-            int orderId = context.Orders.Where(x => x.CustomerId == newOrder.CustomerId && x.OrderDate == DateTimeNow).FirstOrDefault().Id;
-
-            foreach (var product in LoadCart().ProductsInCart)
-            {
-                OrderDetailsModel odm = new OrderDetailsModel() { OrderId = orderId, ProductId = product.Product.Id, Quantity = product.Quantity };
-                context.OrderDetails.Add(odm);
-            }
-
-            context.SaveChanges();
-
-            AddOrderCookie(orderId);
+            AddOrderCookie(newOrder.Id);
 
             RemoveCartCookie();
 
